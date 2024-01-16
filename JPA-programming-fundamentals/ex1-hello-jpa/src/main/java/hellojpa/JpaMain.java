@@ -17,12 +17,6 @@ public class JpaMain {
 
         try {
 
-            Member member = new Member(200L, "member200");
-            em.persist(member);
-
-            em.flush();
-
-            System.out.println("===========================");
             tx.commit();
         } catch (Exception e) {
             System.out.println("에러 발생" + e.getMessage());
