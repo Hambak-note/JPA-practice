@@ -1,12 +1,16 @@
 package jpabook.jpashop.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * Item만 단독으로 저장할 일은 없다고 판단하여 추상 클래스로 만들었다.
+ */
 @Entity
-public class Item {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn
+public abstract class Item extends BaseEntity{
 
     @Id @GeneratedValue
     @Column(name = "ITEM_ID")
@@ -14,6 +18,9 @@ public class Item {
     private String name;
     private int price;
     private int stockQuantity;
+
+    @ManyToMany(mappedBy = "items")
+    private List<Category> categories = new ArrayList<>();
 
     public Long getId() {
         return id;
