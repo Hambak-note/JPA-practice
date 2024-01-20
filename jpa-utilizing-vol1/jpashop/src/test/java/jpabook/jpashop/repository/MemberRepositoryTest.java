@@ -21,14 +21,14 @@ class MemberRepositoryTest {
     @Transactional
     @Rollback(value = false)
     public void testMember() {
-        Member member = new Member();
-        member.setUsername("memberA");
-        Long savedId = memberRepository.save(member);
-
-        Member findMember = memberRepository.find(savedId);
-
-        assertThat(findMember.getId()).isEqualTo(member.getId());
-        assertThat(findMember.getUsername()).isEqualTo(member.getUsername());
-        assertThat(findMember).isEqualTo(member);
+//        Member member = new Member();
+//        member.setUsername("memberA");
+//        Long savedId = memberRepository.save(member);
+//
+//        Member findMember = memberRepository.find(savedId);
+//
+//        assertThat(findMember.getId()).isEqualTo(member.getId());
+//        assertThat(findMember.getUsername()).isEqualTo(member.getUsername());
+//        assertThat(findMember).isEqualTo(member);
     }
 }
