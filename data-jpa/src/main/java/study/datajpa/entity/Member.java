@@ -1,24 +1,45 @@
 package study.datajpa.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
+
 
 @Entity
 @Getter @Setter
-public class Member {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString(of = {"id", "username", "age"})
+public class Member extends BaseEntity{
 
     @Id @GeneratedValue
+    @Column(name = "member_id")
     private Long id;
     private String username;
+    private int age;
 
-    protected Member() {
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
+    private Team team;
 
     public Member(String username) {
+        this(username, 0);
+    }
+
+    public Member(String username, int age) {
+        this(username, age, null);
+    }
+
+    public Member(String username, int age, Team team) {
         this.username = username;
+        this.age = age;
+        if (team != null) {
+            changeTeam(team);
+        }
+    }
+
+    //연관관계 편의 메소드
+    public void changeTeam(Team team) {
+        this.team = team;
+        team.getMembers().add(this);
     }
 }
